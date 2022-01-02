@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, {Component,} from 'react';
 import Header from "./Header";
 import List from "./List/List";
 import Gallery from "./Gallery/Gallery";
@@ -13,7 +13,7 @@ export default class App extends Component {
   }
 
   handleShowReg=()=>{
-    this.buttonRegistRef.current.style.visibility = "visible"
+    this.buttonRegistRef.current.style.visibility = "visible";
   }
   render() {
     return (

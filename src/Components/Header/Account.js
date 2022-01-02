@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 
 export default class Account extends Component {
   render() {
+      const {onRegistClick} = this.props;
     return (
       <form className="text-xs p-2 col-span-1">
 
@@ -32,6 +33,7 @@ export default class Account extends Component {
           type="submit"
           className="
         bg-gray-300 pr-4 pl-4 ml-3 rounded-tl-lg rounded-br-lg cursor-pointer right-0"
+          onClick={onRegistClick}
         >
           Registration
         </button>

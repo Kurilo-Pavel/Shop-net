@@ -1,4 +1,4 @@
-import React, {Component, createRef} from 'react';
+import React, {Component,} from 'react';
  import Search from './Search'
 import City from "./City";
  import Account from "./Account";
@@ -13,8 +13,8 @@ export default class Header extends Component {
       bg-orange-300 col-start-1 col-span-5">
         <City/>
         <Search/>
-        <Account/>
-        <button onClick={onRegistClick}>hello</button>
+        <Account onRegistClick={onRegistClick}/>
+        <button type="submit" onClick={onRegistClick}>push me</button>
       </div>
 
     );
