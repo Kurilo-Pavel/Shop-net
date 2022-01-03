@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Formik, Field, Form} from "formik";
 import FormInput from "./FormInput";
 import FormRadio from "./FormRadio";
-import FormButton from "./FormButton";
+
 
 const GENDER = [
     {name: 'gender', label: 'Male', value: 'male'},
