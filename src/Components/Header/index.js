@@ -14,7 +14,6 @@ export default class Header extends Component {
         <City/>
         <Search/>
         <Account onRegistClick={onRegistClick}/>
-        <button type="submit" onClick={onRegistClick}>push me</button>
       </div>
 
     );

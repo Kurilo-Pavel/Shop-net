@@ -4,16 +4,18 @@ import List from "./List/List";
 import Gallery from "./Gallery/Gallery";
 import Cash from "./Cash/Cash";
 import Footer from "./Footer/Footer";
+import {Formik, Field, Form} from "formik";
+
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.buttonRegistRef = React.createRef();
   }
 
-  handleShowReg=()=>{
-    this.buttonRegistRef.current.style.visibility = "visible";
+
+    handleShowReg=()=>{
+    this.buttonRegistRef.current.className = this.buttonRegistRef.current.className + 'visible';
   }
   render() {
     return (
