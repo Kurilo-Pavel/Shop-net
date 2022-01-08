@@ -4,7 +4,7 @@ import FormInput from "./FormInput";
 import FormRadio from "./FormRadio";
 import * as Yup from 'yup';
 
-const passwordRegex=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const telRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
 
 const GENDER = [
@@ -15,23 +15,22 @@ export default class Regist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibleForm: 'hidden'
+      visibleForm: false
     }
   }
 
   handleShow = () => {
+    const {visibleForm} = this.state
     this.setState({
-      visibleForm: 'hidden'
+      visibleForm: !visibleForm
     })
-    this.props.showRegist.current.style.visibility = 'hidden';
-     }
-
-  onButton=()=>{
-    this.handleShow()
-}
+  }
 
   render() {
-    const {showRegist} = this.props;
+    const {showRegistration} = this.props;
+    const {visibleForm} = this.state
+
+    console.log(showRegistration)
     return (
       <Formik
         initialValues={{
@@ -48,36 +47,36 @@ export default class Regist extends Component {
         }
         onSubmit={(formik) => {
           console.log(formik)
-        this.handleShow()
-      }}
+          this.handleShow()
+        }}
         validationSchema={Yup.object().shape({
-            firstName: Yup.string()
-              .required('Name is required')
-              .max(20, 'Name should be less than 20 characters'),
-            lastName: Yup.string()
-              .required('Name is required')
-              .max(20, 'Name should be less than 20 characters'),
-            email: Yup.string()
-              .email('Email should be in correct format')
-              .required('Email is required'),
+          firstName: Yup.string()
+            .required('Name is required')
+            .max(20, 'Name should be less than 20 characters'),
+          lastName: Yup.string()
+            .required('Name is required')
+            .max(20, 'Name should be less than 20 characters'),
+          email: Yup.string()
+            .email('Email should be in correct format')
+            .required('Email is required'),
 
-            telNumber: Yup.string()
-              .matches(telRegex, 'Telephone number should be contain numbers')
-              .required('Telephone number is required'),
-            password: Yup.string()
-              .matches(
-                passwordRegex,
-                'Password should be more than 8 characters and contain at least one number and one letter'
-              )
-              .required('Password is required'),
-            repeatPassword: Yup.string().oneOf(
-              [Yup.ref('password')],
-              'Passwords should match'
-            ).required( 'Passwords should match'),
-          gender:Yup.string()
+          telNumber: Yup.string()
+            .matches(telRegex, 'Telephone number should be contain numbers')
+            .required('Telephone number is required'),
+          password: Yup.string()
+            .matches(
+              passwordRegex,
+              'Password should be more than 8 characters and contain at least one number and one letter'
+            )
+            .required('Password is required'),
+          repeatPassword: Yup.string().oneOf(
+            [Yup.ref('password')],
+            'Passwords should match'
+          ).required('Passwords should match'),
+          gender: Yup.string()
             .required('Gender is required'),
-            city: Yup.string()
-              .required('City is required'),
+          city: Yup.string()
+            .required('City is required'),
           termsAndConditions: Yup.boolean().isTrue(
             'You should accept our terms and conditions'
           ),
@@ -85,9 +84,8 @@ export default class Regist extends Component {
       >
 
         <Form
-          ref={showRegist}
           className={`bg-yellow-200 absolute inset-x-1/4 h-min insert-y-auto rounded-xl
-                    p-4 border-double border-8 border-black invisible`}>
+                    p-4 border-double border-8 border-black ${(visibleForm === showRegistration) ? 'invisible' : 'visible'}`}>
           <div className="text-3xl text-center mb-3">Registration</div>
           <div className="bg-blue-200 p-4 h-auto rounded-xl text-xl">
             <Field name="firstName" component={FormInput} label="First name"/>
@@ -117,7 +115,7 @@ export default class Regist extends Component {
 
               <button
                 type="button"
-                onClick={this.onButton}
+                onClick={this.handleShow}
                 className="p-1 px-4 font-bold text-2xl rounded-xl hover:bg-red-400"
               >
                 Cancel
@@ -126,6 +124,7 @@ export default class Regist extends Component {
           </div>
         </Form>
       </Formik>
+
     )
   }
 }

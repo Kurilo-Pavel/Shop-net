@@ -39,10 +39,12 @@ export default class List extends Component {
       showList: !showList,
       targetList: targetList,
     })
+
   }
 
   render() {
     const {showList, targetList} = this.state
+    const{pushShowItems}=this.props
     return (
       <div className="col-span-1 row-span-4 inline-block border border-black bg-orange-200">
         {(listItems.map((item) => (
@@ -64,6 +66,7 @@ export default class List extends Component {
                   <dd
                     key={item}
                     className="text-xl p-1 pl-8  cursor-pointer hover:bg-amber-300"
+                    onClick={pushShowItems}
                   >
                     {item}
                   </dd>
