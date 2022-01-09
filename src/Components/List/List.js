@@ -34,7 +34,7 @@ export default class List extends Component {
 
   handleShowList = (e) => {
     const {showList} = this.state;
-    const targetList = e.target.getAttribute('value')
+    const targetList = e.target.getAttribute('value');
     this.setState({
       showList: !showList,
       targetList: targetList,
@@ -45,7 +45,7 @@ export default class List extends Component {
   render() {
     const {showList, targetList} = this.state
     const{pushShowItems}=this.props
-    return (
+       return (
       <div className="col-span-1 row-span-4 inline-block border border-black bg-orange-200">
         {(listItems.map((item) => (
             <dl
@@ -65,8 +65,10 @@ export default class List extends Component {
                 item.items.map((item) => (
                   <dd
                     key={item}
+                    value={item}
                     className="text-xl p-1 pl-8  cursor-pointer hover:bg-amber-300"
                     onClick={pushShowItems}
+
                   >
                     {item}
                   </dd>

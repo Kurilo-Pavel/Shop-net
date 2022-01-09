@@ -6,7 +6,6 @@ import Cash from "./Cash/Cash";
 import Footer from "./Footer/Footer";
 
 import {Formik, Field, Form} from "formik";
-import items from "./Gallery/my.json";
 
 
 export default class App extends Component {
@@ -14,23 +13,48 @@ export default class App extends Component {
     super(props);
     this.state = ({
       showItem: '',
-      showForm: false
+      showForm: false,
+      targetDirectory: '',
+      login: '',
+      password: '',
     })
   }
 
-  handleChangeShowItem = () => {
+  handleLogin = (e) => {
     this.setState({
-      showItem: true
+      login: e.target.value
+    })
+  }
+
+  handlePassword = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  handleCheck = () => {
+    if (this.state.login === 'admin' && this.state.password === 'admin') {
+
+      return true
+    }
+  }
+
+  handleChangeShowItem = (e) => {
+    this.setState({
+      showItem: true,
+      targetDirectory: e.target.getAttribute('value')
     })
   }
 
   handleShowItems = () => {
     if (this.state.showItem) {
-      const items = require('./Gallery/my.json')
+      const items = require(`./Gallery/${this.state.targetDirectory}.json`)
       return items
     }
     return []
   }
+
+
   handleShowForm = () => {
     const {showForm} = this.state
     this.setState({
@@ -44,9 +68,17 @@ export default class App extends Component {
   render() {
     return (
       <div className="grid grid-cols-5 grid-rows-7">
-        <Header onRegistClick={this.handleShowForm}/>
+        <Header onRegistClick={this.handleShowForm}
+                handleLogin={this.handleLogin}
+                handlePassword={this.handlePassword}
+                handleCheck={this.handleCheck}
+        />
         <List pushShowItems={this.handleChangeShowItem}/>
-        <Gallery showRegistration={this.handleShowRegistration()} showItems={this.handleShowItems()}/>
+        <Gallery className="text-center"
+                 showRegistration={this.handleShowRegistration()}
+                 showItems={this.handleShowItems()}
+                 handleCheck={this.handleCheck()}/>
+
         <Cash/>
         <Footer/>
       </div>

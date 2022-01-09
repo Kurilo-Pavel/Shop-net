@@ -30,7 +30,6 @@ export default class Regist extends Component {
     const {showRegistration} = this.props;
     const {visibleForm} = this.state
 
-    console.log(showRegistration)
     return (
       <Formik
         initialValues={{
@@ -46,7 +45,7 @@ export default class Regist extends Component {
         }
         }
         onSubmit={(formik) => {
-          console.log(formik)
+          console.log(formik.password)
           this.handleShow()
         }}
         validationSchema={Yup.object().shape({
@@ -84,7 +83,7 @@ export default class Regist extends Component {
       >
 
         <Form
-          className={`bg-yellow-200 absolute inset-x-1/4 h-min insert-y-auto rounded-xl
+          className={`bg-yellow-200 fixed bottom-1/4 inset-x-1/4 h-min  rounded-xl
                     p-4 border-double border-8 border-black ${(visibleForm === showRegistration) ? 'invisible' : 'visible'}`}>
           <div className="text-3xl text-center mb-3">Registration</div>
           <div className="bg-blue-200 p-4 h-auto rounded-xl text-xl">

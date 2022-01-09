@@ -7,13 +7,16 @@ import City from "./City";
 export default class Header extends Component {
 
   render() {
-    const {onRegistClick} = this.props
+    const {onRegistClick,handleLogin,handlePassword,handleCheck} = this.props
     return (
       <div className="grid grid-cols-5
       bg-orange-300 col-start-1 col-span-5">
         <City/>
         <Search/>
-        <Account onRegistClick={onRegistClick}/>
+        <Account onRegistClick={onRegistClick}
+                 handleLogin={handleLogin}
+                 handlePassword={handlePassword}
+                 handleCheck={handleCheck}/>
       </div>
 
     );
