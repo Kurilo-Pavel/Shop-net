@@ -1,32 +1,32 @@
 [
   {
     "name": "Apple Pencil (2nd Generation)",
-    "img": "./Accessories & Supplies/ApplePencil.jpg",
+    "img": "/Accessories & Supplies/ApplePencil.jpg",
     "price": "100"
   },
   {
     "name": "Apple AirPods (2nd Generation)",
-    "img": "./Accessories & Supplies/AppleAirPods.jpg",
+    "img": "/Accessories & Supplies/AppleAirPods.jpg",
     "price": "100"
   },
   {
     "name": "Ailun Glass Screen Protector Compatible for iPhone 11/iPhone XR, 6.1 Inch 3 Pack Tempered Glass",
-    "img": "./Accessories & Supplies/AilunGlassScreenProtector.jpg",
+    "img": "/Accessories & Supplies/AilunGlassScreenProtector.jpg",
     "price": "200"
   },
   {
     "name": "Skylight Frame: 10 inch WiFi Digital Picture Frame, Email Photos from Anywhere, Touch Screen Display, Effortless One Minute Setup - Gift for Friends and Family",
-    "img": "./Accessories & Supplies/SkylightFrame.jpg",
+    "img": "/Accessories & Supplies/SkylightFrame.jpg",
     "price": "150"
   },
   {
     "name": "TOZO T6 True Wireless Earbuds Bluetooth Headphones Touch Control with Wireless Charging Case IPX8 Waterproof Stereo Earphones in-Ear Built-in Mic Headset Premium Deep Bass for Sport Black",
-    "img": "./Accessories & Supplies/TOZOT6TrueWirelessEarbuds.jpg",
+    "img": "/Accessories & Supplies/TOZOT6TrueWirelessEarbuds.jpg",
     "price": "120"
   },
   {
     "name": "SanDisk 128GB microSDXC-Card, Licensed for Nintendo-Switch - SDSQXAO-128G-GNCZN",
-    "img": "./Accessories & Supplies/Sandisk128GB.jpg",
+    "img": "/Accessories & Supplies/Sandisk128GB.jpg",
     "price": "90"
   }
 ]

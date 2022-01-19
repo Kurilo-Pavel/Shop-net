@@ -4,10 +4,14 @@ import List from "./List/List";
 import Gallery from "./Gallery/Gallery";
 import Cash from "./Cash/Cash";
 import Footer from "./Footer/Footer";
+import HeaderSignUp from "./Header/HeaderSignUp";
+import PlaceItems from "./Gallery/PlaceItems";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
-import {Formik, Field, Form} from "formik";
+import HeaderAccount from "./Header/HeaderAccount"
 
 
+const API_URL_BELARUSBANK = 'https://belarusbank.by/api/kursExchange';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +23,7 @@ export default class App extends Component {
       password: '',
     })
   }
+
 
   handleLogin = (e) => {
     this.setState({
@@ -33,8 +38,8 @@ export default class App extends Component {
   }
 
   handleCheck = () => {
-    if (this.state.login === 'admin' && this.state.password === 'admin') {
-
+    if (this.handleCheck === true) {
+      console.log('f')
       return true
     }
   }
@@ -48,8 +53,7 @@ export default class App extends Component {
 
   handleShowItems = () => {
     if (this.state.showItem) {
-      const items = require(`./Gallery/${this.state.targetDirectory}.json`)
-      return items
+      return require(`./Gallery/${this.state.targetDirectory}.json`)
     }
     return []
   }
@@ -67,21 +71,39 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="grid grid-cols-5 grid-rows-7">
-        <Header onRegistClick={this.handleShowForm}
-                handleLogin={this.handleLogin}
-                handlePassword={this.handlePassword}
-                handleCheck={this.handleCheck}
-        />
-        <List pushShowItems={this.handleChangeShowItem}/>
-        <Gallery className="text-center"
-                 showRegistration={this.handleShowRegistration()}
-                 showItems={this.handleShowItems()}
-                 handleCheck={this.handleCheck()}/>
+      <Router>
+        <div className="grid grid-cols-5 grid-rows-7">
+          <Routes>
+            <Route path="/Shop_net" element={<Header
+              // onRegistClick={this.handleShowForm}
+              // handleLogin={this.handleLogin}
+              // handlePassword={this.handlePassword}
+              // handleCheck={this.handleCheck}
+            />}/>
+            <Route path="/login" element={<HeaderAccount/>}/>
+            <Route path="/sing-up" element={<HeaderSignUp/>}/>
+          </Routes>
 
-        <Cash/>
-        <Footer/>
-      </div>
+
+          {/*<List pushShowItems={this.handleChangeShowItem}/>*/}
+          <List/>
+
+          <Routes>
+            <Route path="/p/:item" element={<PlaceItems/>}/>
+          </Routes>
+
+          <Gallery className="text-center"
+                   showRegistration={this.handleShowRegistration()}
+                   showItems={this.handleShowItems()}
+                   handleCheck={this.handleCheck()}
+          />
+
+          <Cash/>
+          <Footer/>
+
+
+        </div>
+      </Router>
     );
   }
 }

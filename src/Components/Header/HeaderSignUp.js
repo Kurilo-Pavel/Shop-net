@@ -1,17 +1,18 @@
 import React, {Component,} from 'react';
 import Search from './Search'
 import City from "./City";
-import Login from "../Login";
+import SignUpForm from "./Sign up/SignUpForm";
+
 
 export default class Header extends Component {
 
   render() {
-    return (
+       return (
       <div className="grid grid-cols-5
       bg-orange-300 col-start-1 col-span-5">
         <City/>
         <Search/>
-        <Login/>
+        <SignUpForm/>
       </div>
 
     );

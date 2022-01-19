@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {Link} from "react-router-dom";
 
 const listItems = [
   {
@@ -44,8 +45,8 @@ export default class List extends Component {
 
   render() {
     const {showList, targetList} = this.state
-    const{pushShowItems}=this.props
-       return (
+    // const {pushShowItems} = this.props
+    return (
       <div className="col-span-1 row-span-4 inline-block border border-black bg-orange-200">
         {(listItems.map((item) => (
             <dl
@@ -63,15 +64,15 @@ export default class List extends Component {
               {(targetList === item.name && showList) ? (
 
                 item.items.map((item) => (
-                  <dd
+                  <Link
+                    to={`/p/${item}`}
                     key={item}
-                    value={item}
-                    className="text-xl p-1 pl-8  cursor-pointer hover:bg-amber-300"
-                    onClick={pushShowItems}
-
+                    // value={item}
+                    className="text-xl p-1 pl-8 block cursor-pointer hover:bg-amber-300"
+                    // onClick={pushShowItems}
                   >
                     {item}
-                  </dd>
+                  </Link>
                 ))
               ) : ''}
             </dl>)
