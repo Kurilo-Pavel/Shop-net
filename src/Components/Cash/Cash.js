@@ -56,7 +56,7 @@ export default class Cash extends Component {
             <Field
               component={FormSelect}
               options={currency}
-              value={currency[3]}
+              value={currency[4]}
               name={'fourth'}
             />
           </div>

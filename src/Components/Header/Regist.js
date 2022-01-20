@@ -15,6 +15,7 @@ export default class Regist extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       visibleForm: false
     }
   }

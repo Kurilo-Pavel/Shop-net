@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import Account from "../Header/Account";
+import LoginForm from "./LoginForm";
+import {Navigate} from 'react-router-dom';
 
 class Index extends Component {
   render() {
-    return (
-     <Account/>
-    );
+    const {currentUser} = this.props;
+    return (<div className="absolute bg-amber-300 w-1/4 h-1/4">
+      {currentUser ? <Navigate to="/Shop_net"/> : <LoginForm/>}
+    </div>);
   }
 }
 

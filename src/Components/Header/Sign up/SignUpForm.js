@@ -1,18 +1,32 @@
 import React, {Component} from 'react';
 import {Formik, Field, Form} from "formik";
 import FormInput from "./../FormInput";
-
+import {doc, setDoc} from "firebase/firestore";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
-import {auth} from "../../../firebase";
+import {auth, db} from "../../../firebase";
 
 export default class SignUpForm extends Component {
 
   handleSubmit = (values) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(()=>{
-        updateProfile(auth.currentUser, {displayName: values.login});
-      });
+      .then(async () => {
+          await updateProfile(auth.currentUser, {displayName: values.login});
+          setDoc(doc(db, 'users', values.login), {
+            username: values.login,
+            firstName: '',
+            lastName: '',
+            email: '',
+            telNumber: '',
+            password: '',
+            repeatPassword: '',
+            gender: '',
+            city: '',
+            profileSrc: '',
+          });
+        }
+      );
   };
+
 
   render() {
     return (
