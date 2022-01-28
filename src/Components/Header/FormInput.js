@@ -1,5 +1,6 @@
 function FormInput({form, field, label, onChange, type = 'text'}) {
     const {errors, touched} = form;
+
     return (
         <div className="mb-2">
             <label className="p-4">{label}</label>

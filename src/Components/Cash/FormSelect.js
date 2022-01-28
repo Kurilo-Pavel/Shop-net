@@ -10,7 +10,6 @@ function FormSelect({options, value, name}) {
       .then((response) => response.json())
       .then((response) =>
         setCounter(response));
-    console.log('UseEffect');
   }, [targetCurrent])
 
 
@@ -27,12 +26,12 @@ setTargetCurrent((prevCounter) =>{
       />
       <select onChange={handleChoiceCurrently}
               name={name}
+              defaultValue={value.name}
       >
         {options ? (
           options.map((option) => (
             <option
               key={option.name}
-              selected={option.name === value.name}
             >
               {option.name}
             </option>

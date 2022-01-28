@@ -4,62 +4,69 @@ import List from "./List/List";
 import Gallery from "./Gallery/Gallery";
 import Cash from "./Cash/Cash";
 import Footer from "./Footer/Footer";
-
 import PlaceItems from "./Gallery/PlaceItems";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import Login from "./Login"
-import Account from "./Account";
-import SignUp from "./Header/Sign up";
+import {auth, db, storage} from '../firebase';
+import {onAuthStateChanged} from 'firebase/auth';
+import Regist from "./Header/Regist";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {collection, addDoc} from "firebase/firestore"
+import Basket from "./Header/Basket";
+import ItemPage from "./Gallery/ItemPage";
+// import {current} from "@reduxjs/toolkit";
+
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username:'',
-      showItem: '',
+      username: '',
+      showCollection: '',
       showForm: false,
       targetDirectory: '',
       login: '',
       password: '',
-      currentUser:'',
+      currentUser: '',
+      image: '',
+      items: require(`./Gallery/Items.json`),
+      searchValue:'',
+      // targetCollection:'',
+      targetItem: '',
     }
 
   }
 
+  // handlePassword = (e) => {
+  //   this.setState({
+  //     password: e.target.value
+  //   })
+  // }
+  //
+  // handleCheck = () => {
+  //   if (this.handleCheck === true) {
+  //     console.log('f')
+  //     return true
+  //   }
+  // }
 
-  handleLogin = (e) => {
+  handleChangeShowCollection = (e) => {
     this.setState({
-      login: e.target.value
+      showCollection: true,
+      targetCollection: e.target.getAttribute('value')
     })
   }
 
-  handlePassword = (e) => {
-    this.setState({
-      password: e.target.value
-    })
-  }
+  handleShowCollection = () => {
+    if (this.state.showCollection) {
+      return require(`./Gallery/Items.json`)
 
-  handleCheck = () => {
-    if (this.handleCheck === true) {
-      console.log('f')
-      return true
-    }
-  }
-
-  handleChangeShowItem = (e) => {
-    this.setState({
-      showItem: true,
-      targetDirectory: e.target.getAttribute('value')
-    })
-  }
-
-  handleShowItems = () => {
-    if (this.state.showItem) {
-      return require(`./Gallery/${this.state.targetDirectory}.json`)
     }
     return []
+  }
+  handleShowItem = (e) => {
+    this.setState({
+      targetItem: e.target.getAttribute('value')
+    })
   }
 
 
@@ -69,53 +76,132 @@ export default class App extends Component {
       showForm: !showForm
     })
   }
-
   handleShowRegistration = () => {
-    return this.state.showForm
+    const {registration} = this.state
+    this.setState({
+      registration: !registration
+    })
+  }
+
+  handleShowLogin = () => {
+    const {login} = this.state
+    this.setState({
+      login: !login
+    })
   }
 
   componentDidMount() {
+
     onAuthStateChanged(auth, (user) => {
+
       this.setState({
         currentUser: user,
       });
-      console.log(this.state.currentUser)
     });
   }
 
+  handleSend = (e) => {
+
+    const file = e.target.files[0];
+    const storageRef = ref(storage, 'image')
+    uploadBytes(storageRef, file).then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(snapshot.ref)
+      addDoc(collection(db, 'image'), {
+        image: downloadURL,
+      })
+      this.setState({
+        image: downloadURL,
+      })
+    })
+
+  }
+  searchItem = (e) => {
+    this.setState({
+      searchValue:e.target.value
+    })
+  }
+
+  filterItems = () => {
+    return this.state.items.filter(item => {
+        return item.name.toLowerCase().includes(this.state.searchValue.toLowerCase())
+      }
+    )
+  }
+
   render() {
-    const{currentUser}=this.state
+    const {
+      currentUser,
+      showForm,
+      registration,
+      login,
+      image,
+      targetCollection,
+      targetItem,
+    } = this.state;
     return (
       <Router>
         <div className="grid grid-cols-5 grid-rows-7">
 
-            <Header
-              currentUser={currentUser}
-              // handleLogin={this.handleLogin}
-              // handlePassword={this.handlePassword}
-              // handleCheck={this.handleCheck}
-            />
-
-          <Routes>
-            <Route path="/Shop_net/log" element={<Account  currentUser={currentUser}/>}/>
-            <Route path="/Shop_net/login" element={<Login  currentUser={currentUser}/>}/>
-            <Route path="/Shop_net/sing-up" element={<SignUp currentUser={currentUser}/>}/>
-          </Routes>
-          {/*<List pushShowItems={this.handleChangeShowItem}/>*/}
-          <List/>
-
-          <Routes>
-            <Route path="/p/:item" element={<PlaceItems/>}/>
-          </Routes>
-
-          <Gallery className="text-center"
-                   showRegistration={this.handleShowRegistration()}
-                   showItems={this.handleShowItems()}
-                   handleCheck={this.handleCheck()}
+          <Header
+            currentUser={currentUser}
+            handleShowForm={this.handleShowForm}
+            showForm={showForm}
+            showRegistration={this.handleShowRegistration}
+            showLogin={this.handleShowLogin}
+            login={login}
+            image={image}
+            searchItem={this.searchItem}
           />
 
+          <List pushShowCollection={this.handleChangeShowCollection}/>
+
+          <Routes>
+            <Route
+              path="/Shop_net"
+              element={
+                <Gallery className="text-center"
+                         filterItems={this.filterItems()}
+                         handleShowItem={this.handleShowItem}
+                />
+              }
+            />
+
+            <Route
+              path="/Shop_net/:collection"
+              element={
+                <PlaceItems showCollection={this.handleShowCollection()}
+                            targetCollection={targetCollection}
+                            filterItems={this.filterItems()}
+                />
+              }
+          />
+
+            <Route
+              path="/Shop_net/:items"
+              element={
+                <ItemPage targetItem={targetItem}
+                          showCollection={this.handleShowCollection()}
+                />
+              }
+            />
+
+            <Route
+              path="/basket"
+              element={
+                <Basket currentUser={currentUser}/>
+              }
+            />
+          </Routes>
+
           <Cash/>
+
           <Footer/>
+
+          <Regist
+            showRegistration={this.handleShowRegistration}
+            registration={registration}
+            handleSend={this.handleSend}
+          />
         </div>
       </Router>
     );

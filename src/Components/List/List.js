@@ -4,23 +4,23 @@ import {Link} from "react-router-dom";
 const listItems = [
   {
     name: 'Electronics',
-    items: ['Accessories & Supplies', 'Camera & Photo', 'Cell Phones & Accessories', 'GPS & Navigations']
+    items: ['Accessories and Supplies', 'Camera and Photo', 'Cell Phones and Accessories', 'GPS and Navigations']
   },
   {
     name: 'Baby',
-    items: ['Activity & Entertainment', 'Baby & Toddler Toys', 'Baby Care', 'Diapering', 'Gifts']
+    items: ['Activity and Entertainment', 'Baby and Toddler Toys', 'Baby Care', 'Diapering', 'Gifts']
   },
   {
     name: 'Sports',
-    items: ['Sports and Outdoors', 'Outdoor Recreation', 'Sports & Fitness', 'Fan Shop']
+    items: ['Sports and Outdoors', 'Outdoor Recreation', 'Sports and Fitness', 'Fan Shop']
   },
   {
     name: 'Toys',
-    items: ['Action Figures & Statues', 'Arts & Crafts', 'Baby & Toddler Toys', 'Building Toys']
+    items: ['Action Figures and Statues', 'Arts and Crafts', 'Baby and Toddler Toys', 'Building Toys']
   },
   {
     name: 'Pet',
-    items: ['Dogs', 'Cats', 'Fish & Aquatic Pets', 'Birds', 'Horses']
+    items: ['Dogs', 'Cats', 'Fish and Aquatic Pets', 'Birds', 'Horses']
   }
 ];
 
@@ -30,6 +30,7 @@ export default class List extends Component {
     super(props);
     this.state = {
       showList: '',
+      targetList:'',
     }
   }
 
@@ -45,7 +46,7 @@ export default class List extends Component {
 
   render() {
     const {showList, targetList} = this.state
-    // const {pushShowItems} = this.props
+    const {pushShowCollection} = this.props
     return (
       <div className="col-span-1 row-span-4 inline-block border border-black bg-orange-200">
         {(listItems.map((item) => (
@@ -65,11 +66,11 @@ export default class List extends Component {
 
                 item.items.map((item) => (
                   <Link
-                    to={`/p/${item}`}
+                    to={`/Shop_net/${item}`}
                     key={item}
-                    // value={item}
+                    value={item}
                     className="text-xl p-1 pl-8 block cursor-pointer hover:bg-amber-300"
-                    // onClick={pushShowItems}
+                    onClick={pushShowCollection}
                   >
                     {item}
                   </Link>

@@ -48,7 +48,7 @@ export default class SignUpForm extends Component {
             type="submit"
             className="bg-gray-300 pr-4 pl-4 ml-3 rounded-tl-lg rounded-br-lg cursor-pointer"
           >
-            Sing Up
+            Sign Up
           </button>
 
         </Form>
