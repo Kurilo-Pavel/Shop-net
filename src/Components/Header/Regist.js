@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {Formik, Field, Form} from "formik";
 import FormInput from "./FormInput";
 import FormRadio from "./FormRadio";
 import * as Yup from 'yup';
-import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
-import {auth, db, storage} from "../../firebase";
-import {doc, setDoc} from "firebase/firestore";
-import {ref, uploadBytes} from "firebase/storage";
-import FormFile from "./FormFile";
+import {useDispatch, useSelector} from "react-redux";
+import {setUser} from "../../store/user/userSlice";
+import {handleShowRegistration} from "../../store/show/showCollectionSlice";
 
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const telRegex = /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
@@ -16,35 +14,63 @@ const GENDER = [
   {name: 'gender', label: 'Male', value: 'male'},
   {name: 'gender', label: 'Female', value: 'female'},
 ];
-export default class Regist extends Component {
+ const Regist =(showRegistration)=> {
+  // constructor(props) {
+  //   super(props);
+  //   this.state={
+  //     image:'',
+  //   }
+  // }
+   const dispatch=useDispatch();
+const registration = useSelector((state)=>state.showCollection.registration)
 
+  // const handleSend = (e) => {
+  //
+  //   const file = e.target.files[0];
+  //   const storageRef = ref(storage, uuidv4());
+  //   uploadBytes(storageRef, file).then(async (snapshot) => {
+  //     const downloadURL = await getDownloadURL(snapshot.ref)
+  //     addDoc(collection(db, 'image'), {
+  //       photo: downloadURL,
+  //
+  //     })
+  //     console.log(downloadURL)
+  //     this.setState({
+  //       image: downloadURL,
+  //     })
+  //
+  //   })
+  //
+  // }
 
-  handleSubmit = (values) => {
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(async () => {
-        await updateProfile(auth.currentUser, {displayName: values.email});
-        setDoc(doc(db, 'users', values.email), {
-          id: auth.currentUser.uid,
-          username: values.firstName,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          email: values.email,
-          telNumber: values.telNumber,
-          password: values.password,
-          gender: values.gender,
-          city: values.city,
-          photo: values.photo,
-        })
-      })
+ const handleSubmit = (values) => {
+      dispatch(setUser(values));
+   dispatch(handleShowRegistration())
+
+    // createUserWithEmailAndPassword(auth, values.email, values.password)
+    //   .then(async () => {
+    //     await updateProfile(auth.currentUser, {displayName: values.email});
+    //     setDoc(doc(db, 'users', values.email), {
+    //       id: auth.currentUser.uid,
+    //       username: values.firstName,
+    //       firstName: values.firstName,
+    //       lastName: values.lastName,
+    //       email: values.email,
+    //       telNumber: values.telNumber,
+    //       password: values.password,
+    //       gender: values.gender,
+    //       city: values.city,
+    //       photo: values.photo,
+    //     })
+    //   })
+    // {showRegistration()}
   }
 
-    render() {
-    const {showRegistration, registration, handleSend} = this.props;
 
     return (
       <div className={`fixed z-20 w-full h-full bg-gray-500/40 grid
       ${registration ? 'visible' : 'invisible'}`}
-           onClick={showRegistration}
+           onClick={()=>{dispatch(handleShowRegistration())}}
       >
         <Formik
           initialValues={{
@@ -60,7 +86,7 @@ export default class Regist extends Component {
             termsAndConditions: false,
           }
           }
-          onSubmit={this.handleSubmit}
+          onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
             firstName: Yup.string()
               .required('Name is required')
@@ -111,15 +137,12 @@ export default class Regist extends Component {
               <Field name="password" type="password" component={FormInput} label="Password"/>
               <Field name="repeatPassword" type="password" component={FormInput} label="Repeat password"/>
               <Field name="city" component={FormInput} label="Your city"/>
-              <Field name="photo" type="file" component={FormFile} label="Upload a photo"
-                    onChange={handleSend} />
-
               <fieldset className="mb-2 pl-4">
                 <legend>Gender</legend>
                 <Field name="gender" options={GENDER} component={FormRadio}/>
               </fieldset>
               <div>
-                <Field name="termsAndConditions" type="checkbox" id="termsAndConditions"/>
+                <Field name="termsAndConditions" type="checkbox" id="termsAndConditions" className='accent-red-500'/>
                 <label>I Agree with Terms and Conditions</label>
               </div>
 
@@ -130,10 +153,9 @@ export default class Regist extends Component {
                 >
                   Ok
                 </button>
-
                 <button
                   type="button"
-                  onClick={showRegistration}
+                  onClick={()=>{dispatch(handleShowRegistration)}}
                   className="p-1 px-4 font-bold text-2xl rounded-xl hover:bg-red-400"
                 >
                   Cancel
@@ -145,4 +167,4 @@ export default class Regist extends Component {
       </div>
     )
   }
-}
+   export default Regist;

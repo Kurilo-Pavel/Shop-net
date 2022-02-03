@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Electronics",
+    "items": ["Accessories and Supplies", "Camera and Photo", "Cell Phones and Accessories", "GPS and Navigations"]
+  },
+  {
+    "name": "Baby",
+    "items": ["Activity and Entertainment", "Baby and Toddler Toys", "Baby Care", "Diapering", "Gifts"]
+  },
+  {
+    "name": "Sports",
+    "items": ["Sports and Outdoors", "Outdoor Recreation", "Sports and Fitness", "Fan Shop"]
+  },
+  {
+    "name": "Toys",
+    "items": ["Action Figures and Statues", "Arts and Crafts", "Baby and Toddler Toys", "Building Toys"]
+  },
+  {
+    "name": "Pet",
+    "items": ["Dogs", "Cats", "Fish and Aquatic Pets", "Birds", "Horses"]
+  }
+]

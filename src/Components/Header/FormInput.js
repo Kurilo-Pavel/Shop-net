@@ -1,4 +1,4 @@
-function FormInput({form, field, label, onChange, type = 'text'}) {
+const FormInput=({form, field, label, onChange, type = 'text'})=> {
     const {errors, touched} = form;
 
     return (

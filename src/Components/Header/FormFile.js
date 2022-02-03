@@ -1,7 +1,6 @@
-import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
-import {storage} from "../../firebase";
 
-function FormFile({form, field, label,onChange}) {
+
+const FormFile=({form, field, label,onChange})=> {
   const {errors, touched} = form;
 
   return (

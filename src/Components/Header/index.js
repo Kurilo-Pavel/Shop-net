@@ -4,27 +4,20 @@ import City from "./City";
 import LoginImage from "./LoginImage";
 import Account from "../Account";
 
-export default class Header extends Component {
+const Header = (currentUser) => {
 
-  render() {
-    const {searchItem, currentUser, handleShowForm, showForm, showRegistration, showLogin,login,image} = this.props;
-    return (
-      <div className="grid grid-cols-5
-      bg-orange-300 col-start-1 col-span-5">
-        <City/>
-        <Search searchItem={searchItem}/>
-        <LoginImage handleShowForm={handleShowForm}/>
-        <Account
-          showForm={showForm}
-          showRegistration={showRegistration}
-          showLogin={showLogin}
-          login={login}
-          handleShowForm={handleShowForm}
-          currentUser={currentUser}
-          image={image}
-        />
-      </div>
+  return (
+    <div className="grid grid-cols-5 z-10
+      bg-orange-300 col-start-1 col-span-5 sticky top-0">
+      <City
+      />
+      <Search/>
+      <LoginImage currentUser={currentUser}/>
+      <Account
+        currentUser={currentUser}
+      />
+    </div>
 
-    );
-  }
+  );
 }
+export default Header;
