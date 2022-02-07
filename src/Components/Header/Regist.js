@@ -24,7 +24,7 @@ const Regist = () => {
     dispatch(getUser(currentUser.email))
   }
   return (
-    <div className={`fixed z-20 w-full h-full bg-gray-500/40 grid
+    <div className={`fixed z-20 w-full h-full bg-gray-100/40 grid
       ${registration ? 'visible' : 'invisible'}`}
          onClick={() => {
            dispatch(handleShowRegistration())
@@ -79,8 +79,8 @@ const Regist = () => {
       >
 
         <Form
-          className="w-1/2 relative mx-auto grid justify-center  bg-gray-600 max-h-full
-                   place-self-center p-4 border-double border-8 border-black"
+          className="w-1/2 relative mx-auto grid justify-center  bg-gray-500 max-h-full
+                   place-self-center p-4 border border-3-gray  shadow-[0_1em_0.5em_0.8em_gray]"
           onClick={(e) => {
             e.stopPropagation()
           }}
@@ -106,7 +106,10 @@ const Regist = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="p-1 px-4 font-bold text-2xl rounded-xl mr-8 hover:bg-green-400"
+                className="inline bg-gray-400  p-2 px-14
+                  hover:bg-gray-200 text-2xl my-2
+                   shadow-[0_0.3em_0.5em_0.15em_grey] active:shadow-none
+                   active:translate-x-0.5 active:translate-y-0.5"
               >
                 Ok
               </button>
@@ -115,8 +118,10 @@ const Regist = () => {
                 onClick={() => {
                   dispatch(handleShowRegistration())
                 }}
-                className="p-1 px-4 font-bold text-2xl rounded-xl hover:bg-red-400"
-              >
+                className="inline bg-gray-400  p-2 px-10
+                  hover:bg-gray-200 text-2xl my-2 mx-2
+                   shadow-[0_0.3em_0.5em_0.15em_grey] active:shadow-none
+                   active:translate-x-0.5 active:translate-y-0.5"              >
                 Cancel
               </button>
             </div>
