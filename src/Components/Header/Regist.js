@@ -121,7 +121,7 @@ const Regist = () => {
                 className="inline bg-gray-400  p-2 px-10
                   hover:bg-gray-200 text-2xl my-2 mx-2
                    shadow-[0_0.3em_0.5em_0.15em_grey] active:shadow-none
-                   active:translate-x-0.5 active:translate-y-0.5"              >
+                   active:translate-x-0.5 active:translate-y-0.5">
                 Cancel
               </button>
             </div>

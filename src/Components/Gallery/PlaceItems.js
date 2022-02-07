@@ -8,7 +8,6 @@ import ChoiceCash from "../Cash/SwitchCash";
 const PlaceItems = () => {
   const dispatch = useDispatch();
   const targetValue = useSelector((state) => state.showCollection.showCollection);
-
   dispatch(getItems());
   const items = useSelector((state) => state.items.items);
   const searchValue = useSelector((state) => state.searchItem.searchValue);
@@ -24,7 +23,6 @@ const PlaceItems = () => {
   useEffect(() => {
     return url
   }, [])
-
 
   return (
     <div className="relative col-start-2 col-span-3 row-start-2 h-full scroll-smooth  inline">

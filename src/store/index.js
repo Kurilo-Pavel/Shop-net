@@ -5,7 +5,7 @@ import cashReducer from "./cash/cashSlice";
 import itemsReducer from "./items/itemsSlice";
 import showCollectionReducer from "./show/showCollectionSlice";
 import searchReducer from "./show/showCollectionSlice";
-import imageReducer from "./imageSlice";
+import imageReducer from "./image/imageSlice";
 
 export default configureStore({
   reducer: {
@@ -16,7 +16,6 @@ export default configureStore({
     showCollection: showCollectionReducer,
     searchItem: searchReducer,
     image: imageReducer,
-
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

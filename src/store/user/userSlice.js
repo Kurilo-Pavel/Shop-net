@@ -3,7 +3,6 @@ import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import {auth, db} from "../../firebase";
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 
-
 export const getUser = createAsyncThunk(
   'user/getUserStatus',
   async (email) => {
@@ -61,7 +60,6 @@ export const setFieldUser = createAsyncThunk(
         return null
     }
   });
-
 
 export const userSlice = createSlice({
     name: 'user',

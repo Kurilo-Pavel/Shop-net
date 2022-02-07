@@ -5,7 +5,6 @@ import {pushItemBasket,} from "../../store/items/itemsSlice";
 import {getUser} from "../../store/user/userSlice";
 import UserField from "./UserField";
 import Loading from "./Loading";
-// import Button from "../Cash/Button";
 
 const Cart = () => {
 
@@ -46,16 +45,9 @@ const Cart = () => {
   return <div className="col-start-2 col-span-3 row-start-2 row-end-4 scroll-smooth block ">
 
     {UserField({value: "First name", data: user.firstName, user: currentUser.email})}
-    {/*{Button({name: "Edit", value: "First name"})}*/}
-
     {UserField({value: "Last name", data: user.lastName, user: currentUser.email})}
-    {/*{Button({name: "Edit", value: "Last name"})}*/}
-
     {UserField({value: "Email", data: user.email, user: currentUser.email})}
-    {/*{Button({name: "Edit", value: "Email"})}*/}
-
     {UserField({value: "City", data: user.city, user: currentUser.email})}
-    {/*{Button({name: "Edit", value: "City"})}*/}
 
     {!user.buyItem ? null : (user.buyItem.map((buy, index) => (
       <div key={index}>
@@ -83,8 +75,6 @@ const Cart = () => {
 
       </div>
     )))}
-    {/*{!user.buyItem ? null :*/}
-    {/* <p>{user.buyItem.map((buy) => (buy.price))}</p>}*/}
   </div>;
 }
 export default Cart;

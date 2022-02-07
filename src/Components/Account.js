@@ -4,7 +4,7 @@ import {auth} from '../firebase';
 import {useDispatch, useSelector} from "react-redux";
 import {handleShowLogin, handleShowRegistration, handleShowForm} from "../store/show/showCollectionSlice";
 import LoginForm from "./Login/LoginForm";
-import {addImage} from "../store/imageSlice";
+import {addImage} from "../store/image/imageSlice";
 import {useEffect, useRef} from "react";
 import {getUser} from "../store/user/userSlice";
 import {Link} from "react-router-dom";
@@ -90,7 +90,6 @@ const Account = () => {
         </div>
       </div>
     </div>
-
   );
 }
 export default Account;

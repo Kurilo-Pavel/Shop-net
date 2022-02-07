@@ -1,7 +1,7 @@
 import React from "react";
 
-const Loading=()=>{
-  return(
+const Loading = () => {
+  return (
     <div className="absolute h-96 w-full">
       <div className="flex items-center justify-center h-full">
         <div

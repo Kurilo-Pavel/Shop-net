@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {db, storage} from "../firebase";
-import {addDoc, collection, doc, setDoc, updateDoc} from "firebase/firestore";
+import {db, storage} from "../../firebase";
+import {doc, updateDoc} from "firebase/firestore";
 import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 import {v4 as uuidv4} from "uuid";
 
@@ -28,10 +28,6 @@ export const imageSlice = createSlice({
       [addImage.fulfilled]: (state, action) => {
         state.image = action.payload;
       },
-      [addImage.pending]: (state, action) => {
-        // state.image = action.payload;
-      },
-
     }
   }
 );

@@ -9,8 +9,8 @@ export const showCollectionSlice = createSlice({
     login: '',
     showForm: '',
     registration: '',
-    targetItem:'',
-    inputField:'',
+    targetItem: '',
+    inputField: '',
   },
   reducers: {
     targetCollection: (state, action) => {
@@ -25,14 +25,14 @@ export const showCollectionSlice = createSlice({
     handleShowLogin: state => {
       state.login = !state.login
     },
-    handleShowForm: (state)=> {
-      state.showForm =!state.showForm
+    handleShowForm: (state) => {
+      state.showForm = !state.showForm
     },
     handleShowRegistration: state => {
       state.registration = !state.registration
     },
-    handleScaleImage:(state,action) => {
-      state.targetImage=action.payload
+    handleScaleImage: (state, action) => {
+      state.targetImage = action.payload
     },
     inputField: (state, action) => {
       state.inputField = action.payload

@@ -23,7 +23,7 @@ export const cashSlice = createSlice({
   initialState: {
     cash: '',
     cashItem: '',
-    loading:'',
+    loading: '',
   },
   reducers: {},
   extraReducers: {

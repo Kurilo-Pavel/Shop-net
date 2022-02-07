@@ -3,8 +3,6 @@ import FormSelect from "./FormSelect";
 import CashSelect from "./CashSelect";
 import Loading from "../Gallery/Loading";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
-import {Link} from "react-router-dom";
 
 const currency = [
   {name: 'USD'},
@@ -19,8 +17,6 @@ const currency = [
 
 const Cash = () => {
   const loadingCash = useSelector((state) => state.cash.loading);
-
-
   return (
     <Formik
       initialValues={''}

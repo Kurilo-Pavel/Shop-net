@@ -23,7 +23,6 @@ const App = () => {
     });
   }, [])
 
-
   return (
     <Router>
       <div className="grid grid-cols-5 grid-rows-10 ">

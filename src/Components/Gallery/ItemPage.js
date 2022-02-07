@@ -14,7 +14,6 @@ const ItemPage = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const cashItem = useSelector((state) => state.cash.cashItem);
 
-
   const value = {
     'user': currentUser ? currentUser.email : null,
     'buyItem': buyItem,
