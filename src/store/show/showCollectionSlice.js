@@ -1,8 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-
 export const showCollectionSlice = createSlice({
-  name: 'target',
+  name: 'showCollection',
   initialState: {
     showCollection: '',
     showItem: '',
@@ -10,6 +9,8 @@ export const showCollectionSlice = createSlice({
     login: '',
     showForm: '',
     registration: '',
+    targetItem:'',
+    inputField:'',
   },
   reducers: {
     targetCollection: (state, action) => {
@@ -19,22 +20,29 @@ export const showCollectionSlice = createSlice({
       state.showItem = action.payload
     },
     searchItem: (state, action) => {
-      state.searchItem = action.payload
+      state.searchValue = action.payload
     },
     handleShowLogin: state => {
       state.login = !state.login
     },
-    handleShowForm: (state, action) => {
-      state.showForm =action.payload
-
+    handleShowForm: (state)=> {
+      state.showForm =!state.showForm
     },
     handleShowRegistration: state => {
       state.registration = !state.registration
+    },
+    handleScaleImage:(state,action) => {
+      state.targetImage=action.payload
+    },
+    inputField: (state, action) => {
+      state.inputField = action.payload
     },
   }
 })
 
 export const {
+  inputField,
+  handleScaleImage,
   handleShowForm,
   handleShowRegistration,
   targetCollection,

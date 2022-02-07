@@ -1,6 +1,4 @@
-
-
-const FormFile=({form, field, label,onChange})=> {
+const FormFile = ({form, field, label, onChange}) => {
   const {errors, touched} = form;
 
   return (
@@ -10,7 +8,7 @@ const FormFile=({form, field, label,onChange})=> {
         type="file"
         name="myFile"
         className="pl-2 focus:outline-none focus:ring focus:ring-black-300 bg-gray-200 hover:bg-white"
-      onChange={onChange}
+        onChange={onChange}
       />
       {errors[field.name] && touched[field.name] ? <p>{errors[field.name]}</p> : null}
     </div>

@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {collection, doc, getDoc, getDocs, updateDoc,} from "firebase/firestore";
+import {collection, doc, getDoc, getDocs, updateDoc, deleteField} from "firebase/firestore";
 import {db} from "../../firebase";
 
 export const getItems = createAsyncThunk(
   'items/getItemsStatus',
   async () => {
-    const querySnapshot = await getDocs(collection(db, "Items"));
+    const querySnapshot = await getDocs(collection(db, "Items")); //получить все
     const items = []
     querySnapshot.forEach((doc) => {
       items.push(doc.data())
@@ -14,12 +14,11 @@ export const getItems = createAsyncThunk(
   }
 )
 
-export const buyItems = createAsyncThunk(
+export const buyItems = createAsyncThunk( //получить
   'items/buyItemsStatus',
   async (id) => {
     const docRef = doc(db, "Items", id);
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
       return docSnap.data()
     }
@@ -27,13 +26,21 @@ export const buyItems = createAsyncThunk(
   }
 )
 
-export const pushItemBasket = createAsyncThunk(
+export const pushItemBasket = createAsyncThunk( //обновить
   'item/pushItemBasketStatus',
   async (value) => {
-    console.log(value.user)
-    const washingtonRef = doc(db, "users", value.user);
-    await updateDoc(washingtonRef, {
-     buyItem:value.buyItem,
+    const itemRef = doc(db, "users", value.user);
+    await updateDoc(itemRef, {
+      buyItem: value.buyItem,
+    });
+  }
+)
+export const deleteItemCart = createAsyncThunk(
+  'items/deleteItemCartStatus',
+  async (value) => {
+    const cityRef = doc(db, value.user, `buyItem.${value.id}`);
+    await updateDoc(cityRef, {
+      capital: deleteField()
     });
   }
 )
@@ -44,22 +51,38 @@ export const itemsSlice = createSlice({
     items: [],
     itemByu: [],
     buyItem: '',
+    deleteItem: '',
+    loading: '',
   },
-  reducers: {},
+  reducers: {
+  },
   extraReducers: {
-    // [getItems.pending]: (state, action) => {
-    // },
+    [getItems.pending]: state => {
+      state.loading = "loading"
+    },
     [getItems.fulfilled]: (state, action) => {
       state.items = action.payload;
+      state.loading = "default"
     },
     [buyItems.fulfilled]: (state, action) => {
       state.itemByu.push(action.payload)
+      state.loading = "default"
+    },
+    [buyItems.pending]: state => {
+      state.loading = "loading"
     },
     [pushItemBasket.fulfilled]: (state, action) => {
       state.buyItem = action.payload
+      state.loading = "default"
+    },
+    [pushItemBasket.pending]: state => {
+      state.loading = "loading"
+    },
+    [deleteItemCart.fulfilled]: (state, action) => {
+      state.itemBuy = action.payload
     },
   }
 })
 
-
+export const{filterItem}= itemsSlice.actions;
 export default itemsSlice.reducer;

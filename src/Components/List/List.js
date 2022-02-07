@@ -19,7 +19,7 @@ const List = () => {
   }
 
   return (
-    <div className="col-span-1  row-span-4 inline-block border border-black bg-orange-200 ">
+    <div className=" col-span-1 row-start-2 row-end-4 inline bg-gray-300">
       {(listItems.map((item) => (
           <dl
             key={item.name}
@@ -28,7 +28,7 @@ const List = () => {
           >
             <dt
               value={item.name}
-              className="font-bold p-1 pl-2 text-2xl cursor-pointer hover:bg-amber-600"
+              className="font-bold p-1 pl-2 text-2xl cursor-pointer hover:bg-gray-400"
             >
               {item.name}
             </dt>
@@ -38,7 +38,7 @@ const List = () => {
                   to={`/Shop_net/collection/${item}`}
                   key={item}
                   value={item}
-                  className="text-xl p-1 pl-8 block cursor-pointer hover:bg-amber-300"
+                  className="text-xl p-1 pl-8 block cursor-pointer hover:font-bold"
                   onClick={(e) => {
                     dispatch(targetCollection(e.target.getAttribute('value')))
                   }}

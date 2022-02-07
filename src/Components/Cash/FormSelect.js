@@ -1,42 +1,31 @@
-import {useState, useEffect, useCallback, useRef, useMemo} from "react";
+import React, {useState, useEffect, useCallback, useRef, useMemo} from "react";
 import {getCash} from "../../store/cash/cashSlice"
 import {useDispatch, useSelector} from "react-redux";
 import log from "tailwindcss/lib/util/log";
-
+import {current} from "@reduxjs/toolkit";
+import Loading from "../Gallery/Loading";
 
 const FormSelect = ({options, value, name}) => {
 
   const [counter, setCounter] = useState('');
   const [targetCurrent, setTargetCurrent] = useState(value.name);
+
   const dispatch = useDispatch();
-  const isMount = useRef(true);
 
   useEffect(() => {
-    dispatch(getCash(targetCurrent));
-  }, [targetCurrent]);
+    dispatch(getCash());
+  }, [, counter, targetCurrent]);
 
   const skedCash = useSelector((state) => state.cash.cash);
-
-// console.log(skedCash)
   useEffect(() => {
-    // console.log(skedCash)
-    // if (isMount.current) {
-    //   isMount.current = false;
-    //   return;
-    // }
-    //
-    // const cash = () => {
-    //   const value = handle.filter(currensy => {
-    //     return currensy.Cur_Abbreviation === targetCurrent ? currensy : null
-    //   })
-    //   console.log(value)
-    //   return value === [] ? 'null' :
-    //     (targetCurrent === 'BYN' ? '0' : value[0].Cur_OfficialRate)
-    // }
-    // setCounter(cash)
-    setCounter(skedCash)
-  }, [targetCurrent]);
-
+    if (skedCash !== '') {
+      const cashValue = () => {
+        const valueCurrent = skedCash.filter((cur) => cur.Cur_Abbreviation === targetCurrent)
+        return targetCurrent === 'BYN' ? 0 : valueCurrent[0].Cur_OfficialRate
+      }
+      setCounter(cashValue())
+    }
+  }, [targetCurrent])
 
   const handleChoiceCurrently = (e) => {
     setTargetCurrent((prevCounter) => {
@@ -44,29 +33,29 @@ const FormSelect = ({options, value, name}) => {
     })
   }
 
-  return (
-    <>
-      <input type="text" className="w-1/2 inline border border-blue-200 m-2"
-             value={skedCash}
-             name={name}
-      />
-      <select onChange={handleChoiceCurrently}
-              name={name}
-              defaultValue={value.name}
-      >
-        {options ? (
-          options.map((option) => (
-            <option
-              key={option.name}
-            >
-              {option.name}
-            </option>
-          ))
-        ) : ''}
+  if (!skedCash) {
+    return (Loading())
+  }
+  return <>
+    <input type="text" className="w-1/2 inline border border-blue-200 m-2"
+           defaultValue={counter}
+           name={name}
+    />
+    <select onChange={handleChoiceCurrently}
+            name={name}
+            defaultValue={value.name}
+    >
+      {options ? (
+        options.map((option) => (
+          <option
+            key={option.name}
+          >
+            {option.name}
+          </option>
+        ))
+      ) : ''}
 
-      </select>
-    </>
-  )
+    </select>
+  </>
 }
-
 export default FormSelect;

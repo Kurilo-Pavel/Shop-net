@@ -1,38 +1,43 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
-
 export const getCash = createAsyncThunk(
   'cash/getCashStatus',
-  async (cur, {rejectWithValue, dispatch})=> {
-    const response = await fetch(`https://www.nbrb.by/api/exrates/rates/${cur}?parammode=2`);
+  async () => {
+    const response = await fetch(` https://www.nbrb.by/api/exrates/rates?periodicity=0`);
     const data = await response.json();
-    dispatch(setCash(data.Cur_OfficialRate))
-    // return data.Cur_OfficialRate
+    return data
   });
 
-const initialState = {
-  cash: [0],
-}
+export const getCashItem = createAsyncThunk(
+  'cash/getCashItemStatus',
+  async (current) => {
+    const response = await fetch(`https://www.nbrb.by/api/exrates/rates/${current}?parammode=2`);
+    const data = await response.json();
+    return data
+  }
+)
+
 
 export const cashSlice = createSlice({
   name: 'cash',
-  initialState,
-  reducers: {
-    setCash: (state, action) => {
-      state.cash = action.payload
-    }
+  initialState: {
+    cash: '',
+    cashItem: '',
+    loading:'',
   },
+  reducers: {},
   extraReducers: {
     [getCash.pending]: (state) => {
-
+      state.loading = "loading"
     },
     [getCash.fulfilled]: (state, action) => {
-      // state.cash = action.payload ;
+      state.cash = action.payload;
+      state.loading = "default"
     },
-    [getCash.rejected]: (state, action) => {
-    }
+    [getCashItem.fulfilled]: (state, action) => {
+      state.cashItem = action.payload;
+    },
   }
 })
-export const {setCash} = cashSlice.actions;
-// export const {handle}=cashSlice.actions;
+
 export default cashSlice.reducer;

@@ -1,17 +1,17 @@
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
-import "firebase/compat/auth";
 import { getFirestore } from 'firebase/firestore';
 import {getStorage} from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgeldO805vsI1CgoVPK8msy9WLbH9IhNw",
-  authDomain: "shope-net.firebaseapp.com",
-  projectId: "shope-net",
-  storageBucket: "shope-net.appspot.com",
-  messagingSenderId: "925313605699",
-  appId: "1:925313605699:web:cf4f160aa0819196f574f6"
+  apiKey: "AIzaSyA7TpyNV8O6b8BwrAaRPsk8oDSfHPxBf1E",
+  authDomain: "shop-next-300f1.firebaseapp.com",
+  projectId: "shop-next-300f1",
+  storageBucket: "shop-next-300f1.appspot.com",
+  messagingSenderId: "1006739368972",
+  appId: "1:1006739368972:web:2a3a9f0683a5ef606e5229"
 };
+
 
 const firebase = initializeApp(firebaseConfig);
 const auth = getAuth();

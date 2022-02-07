@@ -5,8 +5,8 @@ const City = () => {
     <Link
       to="/Shop_net"
       type="submit"
-      className=" col-span-1 m-4 text-3xl cursor-pointer text-white
-        hover:text-blue-900 "
+      className=" m-4 text-3xl cursor-pointer text-stone-200
+        hover:text-blue-900 float-left"
     >
       SHOP_NET
     </Link>
